@@ -2,28 +2,34 @@ import React, { Component } from "react";
 import Loading from "./Loading";
 import Panel from "./Panel";
 import axios from "axios";
+import {
+  getTotalInterviews,
+  getLeastPopularTimeSlot,
+  getMostPopularDay,
+  getInterviewsPerDay
+ } from "helpers/selectors"; 
 import classnames from "classnames";
 
 const data = [
   {
     id: 1,
     label: "Total Interviews",
-    value: 6
+    getValue: getTotalInterviews
   },
   {
     id: 2,
     label: "Least Popular Time Slot",
-    value: "1pm"
+    getValue: getLeastPopularTimeSlot
   },
   {
     id: 3,
     label: "Most Popular Day",
-    value: "Wednesday"
+    getValue: getMostPopularDay
   },
   {
     id: 4,
     label: "Interviews Per Day",
-    value: "2.3"
+    getValue: getInterviewsPerDay
   }
 ];
 
@@ -79,7 +85,7 @@ class Dashboard extends Component {
      <Panel
       key={panel.id}
       label={panel.label}
-      value={panel.value}
+      value={panel.getValue(this.state)}
       onSelect={event => this.selectPanel(panel.id)}
      />
     ));
